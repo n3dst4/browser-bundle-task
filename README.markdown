@@ -92,6 +92,12 @@ simplify buildFolder, outFileName
 
 callback
 
-it doesn't need to be a generator
+may it doesn't need to be a generator
+
+test production flag
+
+test watch flag?
+
+
 
 [gulp]: http://gulpjs.com/
