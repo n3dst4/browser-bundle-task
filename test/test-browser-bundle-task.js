@@ -35,7 +35,7 @@ describe("browser-bundle-task", function () {
       return denodeify(fs.copy)(fixturePath, srcFolderPath)
     }).then(() => {
       process.chdir(srcFolderPath)
-      const bundleStream = browserBundleTask(path.join(srcFolderPath, "main.js"), "main.js", buildFolderPath)()
+      const bundleStream = browserBundleTask(path.join(srcFolderPath, "main.js"), path.join(buildFolderPath, "main.js"))()
       return new Promise((resolve, reject) => {
         bundleStream.on("end", resolve)
         bundleStream.on("error", reject)

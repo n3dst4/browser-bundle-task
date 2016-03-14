@@ -12,12 +12,14 @@ import path from "path"
 import {dest as vinylDestination} from "vinyl-fs"
 
 // bundleTask returns a function which is suitable for use as a gulp task
-export default function bundleTask (inFile, outFile, outFolder,
+export default function bundleTask (inFilePath, outFilePath,
     opts = {watch: false, production: false}) {
+  const outFolder = path.dirname(outFilePath)
+  const outFileName = path.basename(outFilePath)
   return function () {
     let bundler =
       browserify({
-        entries: [inFile],
+        entries: [inFilePath],
         debug: !opts.production,
         cache: {},
         packageCache: {},
@@ -38,7 +40,7 @@ export default function bundleTask (inFile, outFile, outFolder,
           console.error(err);
           this.emit("end");
         })
-        .pipe(vinylSource(outFile))
+        .pipe(vinylSource(outFileName))
         .pipe(vinylBuffer())
         .pipe(gulpIf(!opts.production, sourcemaps.init({loadMaps: true})))
         .pipe(gulpIf(opts.production, uglify()))
