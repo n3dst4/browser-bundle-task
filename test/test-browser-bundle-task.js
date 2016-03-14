@@ -1,6 +1,6 @@
 /*global describe, it, before*/
 
-import chai from "chai";
+import {expect} from "chai";
 import browserBundleTask from "../src/browser-bundle-task";
 import path from "path"
 import fs from "fs-extra"
@@ -9,7 +9,6 @@ import denodeify from "denodeify"
 import vm from "vm"
 import crypto from "crypto"
 import rimraf from "rimraf"
-const expect = chai.expect
 
 describe("browser-bundle-task", function () {
   before(function (done) {
