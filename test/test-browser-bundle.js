@@ -1,7 +1,7 @@
 /*global describe, it, before*/
 
 import {expect} from "chai";
-import browserBundleTask from "../src/browser-bundle-task";
+import browserBundle from "../src/browser-bundle";
 import path from "path"
 import fs from "fs-extra"
 import _mkdirp from "mkdirp"
@@ -36,10 +36,10 @@ function setup (options = {}) {
     return denodeify(fs.copy)(fixturePath, srcFolderPath)
   }).then(() => {
     process.chdir(srcFolderPath)
-    const bundleStream = browserBundleTask(
+    const bundleStream = browserBundle(
       path.join(srcFolderPath, "main.js"),
       path.join(buildFolderPath, "main.js"),
-      options)()
+      options)
     return new Promise((resolve, reject) => {
       bundleStream.on("end", () => { resolve(bundleStream) })
       bundleStream.on("error", reject)
@@ -54,7 +54,7 @@ function setup (options = {}) {
   })
 }
 
-describe("browser-bundle-task", function () {
+describe("browser-bundle", function () {
   describe("on default settings", function (){
     before(function () {
       return setup().then(([stream, code]) => {

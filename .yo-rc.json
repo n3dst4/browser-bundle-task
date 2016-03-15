@@ -1,6 +1,6 @@
 {
   "generator-n3dst4-package": {
     "babel": true,
-    "name": "browser-bundle-task"
+    "name": "browser-bundle"
   }
 }

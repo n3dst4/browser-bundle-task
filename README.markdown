@@ -1,18 +1,19 @@
-# @n3dst4/browser-bundle-task
+# @n3dst4/browser-bundle
 
-![Travis status](https://travis-ci.org/n3dst4/browser-bundle-task.svg)
+![Travis status](https://travis-ci.org/n3dst4/browser-bundle.svg)
 
-An opinionated gulp-compatible task factory for bundling through browserify & babelify
+An opinionated browser code bundler using browserify & babelify
 
 ## Installation
 
 ```sh
-npm install @n3dst4/browser-bundle-task --save
+npm install @n3dst4/browser-bundle --save
 ```
 
 ## Usage
 
 ```js
+import browserBundle from "@n3dst4/browser-bundle"
 browserBundleTask(inFilePath, outFilePath [, options] )
 ```
 
@@ -24,9 +25,7 @@ where
    * `watch`: if true, put the task into watch mode, i.e. become long-running and rebuild when changes occur to the source
    * `production`: if true, omit source maps and minify the resulting code
 
-Returns a function, suitable for use as a gulp task, which, when called, will bundle the code.
-
-The returned task function, returns an eventEmitter that represents the bundling stream. You can listen to the the `"end"` event to know when the bundling is completed.
+Returns an eventEmitter that represents the bundling stream. You can listen to the the `"end"` event to know when the bundling is completed.
 
 In watch mode, there is also an `updated` event that is triggered *after* a rebuild has finished.
 
@@ -37,24 +36,22 @@ In watch mode, there is also an `updated` event that is triggered *after* a rebu
 This module exports a factory function that you call with some filename parameters, and it returns a function which, when called, will build and bundle your source.
 
 ```js
-import browserBundleTask from "@n3dst4/browser-bundle-task"
+import browserBundle from "@n3dst4/browser-bundle"
 
 const entryPoint = "src/main.js"
 const outFileName = "build/main.js"
 
-const task = browserBundleTask(entryPoint, outFileName)
-task()
-
-// you can simplify the last two lines by immediately calling the new task:
-browserBundleTask(entryPoint, outFileName)()
+browserBundle(entryPoint, outFileName)
 ```
 
-## As a gulp task
+## In a gulp task
 
-The reason this module exports a factory function is so that it plays nicely with [gulp][gulp]:
+Wrap your call to browserBundle in an arrow function to easily turn it into a gulp-compatible task.
 
 ```js
-gulp.task("build", browserBundleTask(entryPoint, outFileName))
+gulp.task("build", () => {
+   browserBundle(entryPoint, outFileName)
+})
 ```
 
 ## Watch mode
@@ -62,12 +59,14 @@ gulp.task("build", browserBundleTask(entryPoint, outFileName))
 The task can be configured to run in watch mode, i.e. it will become long-running and rebuild your bundle every time a change is detected. Do this by passing in an options object with `watch` set to `true`:
 
 ```js
-browserBundleTask(entryPoint, outFileName, {watch: true})()
+browserBundle(entryPoint, outFileName, {watch: true})
 ```
 
 or in gulp:
 ```js
-gulp.task("watch", browserBundleTask(entryPoint, outFileName, {watch: true}))
+gulp.task("watch", () => {
+   browserBundle(entryPoint, outFileName, {watch: true})
+})
 ```
 
 ## Production mode
@@ -75,14 +74,17 @@ gulp.task("watch", browserBundleTask(entryPoint, outFileName, {watch: true}))
 This module makes no assumptions about what you may or may not consider to be "production", e.g. it doesn't interrogate `NODE_ENV`. If you want to build in "production" mode, which omits source maps and minifies the code, pass the option `production`:
 
 ```js
-browserBundleTask(entryPoint, outFileName,
-   {production: process.env.NODE_ENV === "production"})()
+browserBundle(entryPoint, outFileName,
+   {production: process.env.NODE_ENV === "production"})
 ```
 
 or in gulp:
 ```js
-gulp.task("build", browserBundleTask(entryPoint, outFileName,
-   {production: process.env.NODE_ENV === "production"}))
+gulp.task("build", () => {
+   browserBundle(entryPoint, outFileName,
+      {production: process.env.NODE_ENV === "production"})
+   })
+
 ```
 
 ## Triggering browser reloads with `.on("updated")`
@@ -90,10 +92,10 @@ gulp.task("build", browserBundleTask(entryPoint, outFileName,
 You can add an event listener for the "updated" event to trigger any kind of browser reload you might need (this package is not bound to any particular system.)
 
 ```js
-gulp.task("watch", function () {
-   const task = browserBundleTask(entryPoint, outFileName, {watch: true}))
-   task().on("updated", browserSync.reload)
-}
+gulp.task("watch", () => {
+   const task = browserBundle(entryPoint, outFileName, {watch: true}))
+      .on("updated", browserSync.reload)
+})
 ```
 
 [gulp]: http://gulpjs.com/
