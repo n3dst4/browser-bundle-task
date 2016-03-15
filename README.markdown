@@ -24,7 +24,11 @@ where
    * `watch`: if true, put the task into watch mode, i.e. become long-running and rebuild when changes occur to the source
    * `production`: if true, omit source maps and minify the resulting code
 
-Returns a function, which, when called, will bundle the code.
+Returns a function, suitable for use as a gulp task, which, when called, will bundle the code.
+
+The returned task function, returns an eventEmitter that represents the bundling stream. You can listen to the the `"end"` event to know when the bundling is completed.
+
+In watch mode, there is also an `updated` event that is triggered *after* a rebuild has finished.
 
 ## Examples
 
