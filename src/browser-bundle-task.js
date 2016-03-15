@@ -50,6 +50,8 @@ export default function bundleTask (inFilePath, outFilePath,
         .pipe(vinylDestination(outFolder));
     }
 
+    const bundleStream = bundle()
+
     // when a change is detected, log changes and call bundle again
     bundler.on("update", function (ids) {
       gutil.log("Script dependencies updated:");
@@ -57,7 +59,10 @@ export default function bundleTask (inFilePath, outFilePath,
         return gutil.colors.magenta(path.relative(process.cwd(), id));
       });
       ids.forEach(function (id) { gutil.log(id); });
-      bundle();
+      const updateStream = bundle();
+      updateStream.on("end", function () {
+        bundleStream.emit("updated")
+      })
     })
 
     // the log event is fired by watchify with time and size info
@@ -66,6 +71,6 @@ export default function bundleTask (inFilePath, outFilePath,
     })
 
     // call bundle() once to kick off
-    return bundle()
+    return bundleStream
   }
 }
