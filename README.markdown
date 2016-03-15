@@ -75,23 +75,33 @@ gulp.task("watch", browserBundleTask(entryPoint, outFileName, {watch: true}))
 This module makes no assumptions about what you may or may not consider to be "production", e.g. it doesn't interrogate `NODE_ENV`. If you want to build in "production" mode, which omits source maps and minifies the code, pass the option `production`:
 
 ```js
-browserBundleTask(entryPoint, outFileName, {production: true})()
+browserBundleTask(entryPoint, outFileName,
+   {production: process.env.NODE_ENV === "production"})()
 ```
 
 or in gulp:
 ```js
-gulp.task("watch", browserBundleTask(entryPoint, outFileName,
-   {production: true}))
+gulp.task("build", browserBundleTask(entryPoint, outFileName,
+   {production: process.env.NODE_ENV === "production"}))
 ```
+
+## Triggering browser reloads with `.on("updated")`
+
+You can add an event listener for the "updated" event to trigger any kind of browser reload you might need (this package is not bound to any particular system.)
+
+```js
+gulp.task("watch", function () {
+   const task = browserBundleTask(entryPoint, outFileName, {watch: true}))
+   task().on("updated", browserSync.reload)
+}
+```
+
 
 
 
 # TODO
 
 * callback
-* test production flag
-* test watch flag?
-
 
 
 [gulp]: http://gulpjs.com/

@@ -21,7 +21,6 @@ function setup (options = {}) {
   const buildFolderPath = path.join(tmpDir, "build")
   const fixturePath = path.join(__dirname, "fixtures")
 
-
   try {
     rimraf.sync(path.join(__dirname, "..", "tmp", "*"))
   }
