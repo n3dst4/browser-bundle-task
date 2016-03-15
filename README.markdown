@@ -96,12 +96,4 @@ gulp.task("watch", function () {
 }
 ```
 
-
-
-
-# TODO
-
-* callback
-
-
 [gulp]: http://gulpjs.com/
