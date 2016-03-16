@@ -8,7 +8,7 @@
     "prepublish": "babel src --out-dir __build"
   },
   "repository": "https://github.com/n3dst4/browser-bundle",
-  "author": "Neil de Carteret <npm@lumphamemr.com>",
+  "author": "Neil de Carteret <npm@lumphammer.com>",
   "license": "ISC",
   "keywords": [],
   "dependencies": {
