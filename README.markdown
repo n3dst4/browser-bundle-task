@@ -33,7 +33,7 @@ In watch mode, there is also an `updated` event that is triggered *after* a rebu
 
 ## Just build the code once
 
-This module exports a factory function that you call with some filename parameters, and it returns a function which, when called, will build and bundle your source.
+This module exports a function which takes source and destination filename parameters, and builds and bundles your source.
 
 ```js
 import browserBundle from "@n3dst4/browser-bundle"
