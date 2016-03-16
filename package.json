@@ -1,7 +1,7 @@
 {
   "name": "@n3dst4/browser-bundle",
   "version": "1.0.0",
-  "description": "An opinionated browser code bundler using browserify & babelify",
+  "description": "An opinionated browser code bundler using browserify and babelify",
   "main": "__build/browser-bundle-task.js",
   "scripts": {
     "test": "mocha",
