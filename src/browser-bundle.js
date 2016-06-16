@@ -10,6 +10,7 @@ import gutil from "gulp-util"
 import gulpIf from "gulp-if"
 import path from "path"
 import {dest as vinylDestination} from "vinyl-fs"
+import transformObjectRestSpread from "babel-plugin-transform-object-rest-spread"
 
 // browserBundle returns a function which is suitable for use in a gulp task
 export default function browserBundle (inFilePath, outFilePath,
@@ -23,7 +24,10 @@ export default function browserBundle (inFilePath, outFilePath,
       cache: {},
       packageCache: {},
       //plugin: [babelify]
-    }).transform(babelify, {presets: ["es2015", "react"]})
+    }).transform(babelify, {
+      presets: ["es2015", "react"],
+      "plugins": [transformObjectRestSpread]
+    })
 
   if (opts.watch) {
     bundler = bundler.plugin(watchify)
