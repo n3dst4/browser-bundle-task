@@ -68,7 +68,7 @@ describe("browser-bundle", function () {
     })
 
     it("should have a sourcemap", function () {
-      expect(this.code).to.match(/\/\/# sourceMappingURL=data:application\/json;base64,[A-Za-z0-9+/]+={0,2}\s+$/)
+      expect(this.code).to.match(/\/\/# sourceMappingURL=data:application\/json/)
     })
 
     it("should NOT be minimised (=contains some line breaks)", function () {
