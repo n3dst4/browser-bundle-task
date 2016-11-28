@@ -7,7 +7,7 @@
     "test": "mocha",
     "watch-test": "npm run test -- --watch",
     "build": "babel src --out-dir __build --source-maps inline",
-    "prepublish": "npm run prepublish",
+    "prepublish": "npm run build",
     "watch-build": "npm run build -- --watch"
   },
   "repository": "https://github.com/n3dst4/browser-bundle",
