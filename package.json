@@ -36,6 +36,7 @@
     "@n3dst4/eslint-config-n3dst4": "^1.6.0",
     "babel-cli": "^6.5.1",
     "babel-eslint": "^4.1.6",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
     "denodeify": "^1.2.1",
