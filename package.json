@@ -1,6 +1,6 @@
 {
   "name": "@n3dst4/browser-bundle",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "An opinionated browser code bundler using browserify and babelify",
   "main": "__build/browser-bundle.js",
   "scripts": {
